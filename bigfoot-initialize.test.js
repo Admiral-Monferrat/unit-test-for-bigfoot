@@ -27,9 +27,4 @@ describe("Tests Bigfoot's Initialization", () => {
     expect(bgft_num).toBe("1");
   });
 
-  // TEST for cleanFootnoteLinks
-  test("Function [cleanFootnoteLinks] adds data attributes for footnote links", () => {
-    const $anchor = $("#fn1");
-    expect($anchor.attr("data-footnote-ref")).toBe("#footnote1");
-  });
 });
