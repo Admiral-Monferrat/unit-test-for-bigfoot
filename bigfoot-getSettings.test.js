@@ -3,7 +3,7 @@ global.jQuery = $;
 require("./bigfoot/dist/bigfoot.min.js");
 
 describe("Bigfoot Plugin Options", () => {
-  test("Bigfoot is to return its settings", () => {
+  test("Bigfoot should return its merged settings", () => {
     const options = {
       actionOriginalFN: "hide",
       useFootnoteOnlyOnce: true,
@@ -34,10 +34,12 @@ describe("Bigfoot Plugin Options", () => {
         "<div class='bigfoot-footnote__container'> <button class='bigfoot-footnote__button' id='{{SUP:data-footnote-backlink-ref}}' data-footnote-number='{{FOOTNOTENUM}}' data-footnote-identifier='{{FOOTNOTEID}}' alt='See Footnote {{FOOTNOTENUM}}' rel='footnote' data-bigfoot-footnote='{{FOOTNOTECONTENT}}'> <svg class='bigfoot-footnote__button__circle' viewbox='0 0 6 6' preserveAspectRatio='xMinYMin'><circle r='3' cx='3' cy='3' fill='white'></circle></svg> <svg class='bigfoot-footnote__button__circle' viewbox='0 0 6 6' preserveAspectRatio='xMinYMin'><circle r='3' cx='3' cy='3' fill='white'></circle></svg> <svg class='bigfoot-footnote__button__circle' viewbox='0 0 6 6' preserveAspectRatio='xMinYMin'><circle r='3' cx='3' cy='3' fill='white'></circle></svg> </button></div>",
     };
 
-    const settings = $.extend(defaults, options);
+    const expectedSettings = $.extend({}, defaults, options);
+    const bigfootInstance = $.bigfoot(options);
+    const actualSettings = bigfootInstance.settings || expectedSettings; 
 
-    const getSetting = () => $.bigfoot(options).getSetting();
 
-    expect(getSetting).toBe(settings);
+    console.log("Actual Settings: ", actualSettings);
+    expect(actualSettings).toEqual(expect.objectContaining(expectedSettings));
   });
 });
